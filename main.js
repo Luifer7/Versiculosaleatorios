@@ -63,7 +63,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 
     caja.innerHTML = `
-    <h2>Versículo De La Biblia</h2>
+    <h2>El señor te quiere decir:</h2>
 
     <div class="caja-versiculos">
         <p>»${versiculo[numero].contenido}».</p>
