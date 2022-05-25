@@ -1,28 +1,366 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Boostrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Macondo&display=swap" rel="stylesheet">
     <title>Versiculos</title>
+    <style>
+        * {
+            font-family: 'Macondo', cursive
+        }
+
+        body {
+            box-sizing: border-box;
+            background-image: url(https://github.com/Luifer7/Versiculosaleatorios/blob/master/img/bg.jpg?raw=true);
+            background-size: cover
+        }
+
+        .caja {
+            margin: 0 auto;
+            width: 100%;
+            height: 100vh;
+            *border: 1px solid #000;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            flex-direction: column
+        }
+
+        h2 {
+            margin-top: 20px;
+            margin: 0 auto;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            text-shadow: 1px 1px 2px #000;
+            font-size: 2em;
+            text-transform: capitalize;
+            word-spacing: 2px
+        }
+
+        .caja-versiculos {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center
+        }
+
+        p {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: #fff;
+            text-shadow: 1px 2px 3px #000;
+            font-size: 1.4em;
+            margin-left: 10px;
+            margin-right: 10px
+        }
+
+        span {
+            color: #fff;
+            font-weight: 700;
+            margin-left: 180px;
+            text-shadow: 1px 2px 3px #000;
+            letter-spacing: 2px
+        }
+
+        .flag {
+            width: 50px;
+            height: 30px;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            transition: .5s ease-out;
+            border-radius: 5px;
+        }
+
+        .show {
+            *display: block;
+             z-index: 100;
+        }
+
+        .remove {
+            *display: none;
+            top: 30px;
+            z-index: 0;
+            opacity: 0;
+        }
+        
+         .refresh {    
+           transform: scale(.8);
+           transition: .5s;
+        }
+
+        .refresh:hover {
+            
+            transform: scale(.9);
+             
+         }
+
+
+        @media (max-width:370px) {
+            .caja {
+                margin: 0 auto;
+                width: 95%
+            }
+        }
+    </style>
 </head>
+
 <body>
+
+    <img onclick="setLenguage('pt')" id="pt" style="box-shadow: 1px 2px 3px black;" class="flag"
+        src="https://github.com/Luifer7/Versiculosaleatorios/blob/master/img/Flag_of_Brazil.svg.png?raw=true" alt="">
+
+    <img onclick="setLenguage('es')" id="es" style="box-shadow: 1px 2px 3px black;" class="flag"
+        src="https://github.com/Luifer7/Versiculosaleatorios/blob/master/img/descarga.png?raw=true" alt="">
 
     <div id="texto" class="caja">
 
 
-       
+
     </div>
-    
 
 
+    <script>
 
-<script src="main.js"></script>
+
+        let caja = document.getElementById('texto');
+        let cambiarBtn = document.getElementById('change');
+
+
+        const versiculos = {
+            "versiculos": [
+                {
+                    "titulo": "Salmo 121:7-8",
+                    "contenido": "El Señor te protegerá; de todo mal protegerá tu vida. El Señor te cuidará en el hogar y en el camino, desde ahora y para siempre."
+                },
+                {
+                    "titulo": "Efesios 5:15-16",
+                    "contenido": "Así que tengan cuidado de su manera de vivir. No vivan como necios, sino como sabios, aprovechando al máximo cada momento oportuno, porque los días son malos."
+                },
+                {
+                    "titulo": "Proverbios 27:19",
+                    "contenido": "En el agua se refleja el rostro, y en el corazón se refleja la persona."
+                },
+                {
+                    "titulo": "2 Corintios 5:7",
+                    "contenido": "Vivimos por fe, no por vista."
+                },
+                {
+                    "titulo": "Colosenses 3:23-24",
+                    "contenido": "Hagan lo que hagan, trabajen de buena gana, como para el Señor y no como para nadie en este mundo, conscientes de que el Señor los recompensará con la herencia. Ustedes sirven a Cristo el Señor."
+                },
+                {
+                    "titulo": "Proverbios 21:21",
+                    "contenido": "El que va tras la justicia y el amor halla vida, prosperidad y honra."
+                },
+                {
+                    "titulo": "Marcos 8:36",
+                    "contenido": "¿De qué sirve ganar el mundo entero si se pierde la vida?"
+                },
+                {
+                    "titulo": "Salmo 73:26",
+                    "contenido": "Podrán desfallecer mi cuerpo y mi espíritu, pero Dios fortalece mi corazón; él es mi herencia eterna."
+                },
+                {
+                    "titulo": "1 Pedro 3:10-11",
+                    "contenido": "En efecto, el que quiera amar la vida y gozar de días felices, que refrene su lengua de hablar el mal y sus labios de proferir engaños; que se aparte del mal y haga el bien; que busque la paz y la siga."
+                },
+                {
+                    "titulo": "Proverbios 4:23",
+                    "contenido": "Guíame, pues eres mi roca y mi fortaleza, dirígeme por amor a tu nombre."
+                },
+                {
+                    "titulo": "Juan 3:16",
+                    "contenido": "Porque tanto amó Dios al mundo que dio a su Hijo unigénito, para que todo el que cree en él no se pierda, sino que tenga vida eterna."
+                },
+                {
+                    "titulo": "Filipenses 4:13",
+                    "contenido": "Todo lo puedo en Cristo que me fortalece."
+                },
+                {
+                    "titulo": "Romanos 8:28",
+                    "contenido": "Ahora bien, sabemos que Dios dispone todas las cosas para el bien de quienes lo aman, los que han sido llamados de acuerdo con su propósito."
+                },
+                {
+                    "titulo": "Josué 1:9",
+                    "contenido": "Ya te lo he ordenado: ¡Sé fuerte y valiente! ¡No tengas miedo ni te desanimes! Porque el Señor tu Dios te acompañará dondequiera que vayas."
+                },
+                {
+                    "titulo": "Números 6:24-26",
+                    "contenido": "El Señor te bendiga y te guarde; el Señor te mire con agrado y te extienda su amor; el Señor te muestre su favor y te conceda la paz."
+                },
+                {
+                    "titulo": "Hechos 16:31",
+                    "contenido": "Cree en el Señor Jesús; así tú y tu familia serán salvos ..."
+                },
+                {
+                    "titulo": "Isaías 41:10",
+                    "contenido": "Así que no temas, porque yo estoy contigo; no te angusties, porque yo soy tu Dios.Te fortaleceré y te ayudaré; te sostendré con mi diestra victoriosa."
+                },
+                {
+                    "titulo": "Salmo 23:1-2",
+                    "contenido": "El Señor es mi pastor, nada me falta; en verdes pastos me hace descansar. Junto a tranquilas aguas me conduce."
+                },
+                {
+                    "titulo": "Salmo 23:4",
+                    "contenido": "Aun si voy por valles tenebrosos, no temo peligro alguno porque tú estás a mi lado; tu vara de pastor me reconforta."
+                },
+                {
+                    "titulo": "Jeremías 29:11",
+                    "contenido": "Porque yo sé muy bien los planes que tengo para ustedes —afirma el Señor—, planes de bienestar y no de calamidad, a fin de darles un futuro y una esperanza."
+                }
+                
+            ]
+        }
+        const portugues = {
+            "versos": [
+                {
+                    "title": "Salmo 121:7-8",
+                    "content": "O Senhor o protegerá; Ele protegerá sua vida de todo mal. O Senhor cuidará de você em casa e na estrada, desde agora e para sempre"
+                },
+                {
+                    "title": "Efésios 5:15-16",
+                    "content": "Portanto, tome cuidado como você vive. Não viva como tolos, mas como pessoas sábias, aproveitando ao máximo cada momento oportuno, porque os dias são maus."
+                },
+                {
+                    "title": "Provérbios 27:19",
+                    "content": "O rosto é refletido na água e a pessoa é refletida no coração."
+                },
+                {
+                    "title": "2 Coríntios 5:7",
+                    "content": "Vivemos pela fé, não pela vista."
+                },
+                {
+                    "title": "Colossenses 3:23-24",
+                    "content": "Faça o que fizer, trabalhe de boa vontade, como para o Senhor e não como para qualquer um neste mundo, sabendo que o Senhor o recompensará com a herança. Você serve a Cristo, o Senhor."
+                },
+                {
+                    "title": "Provérbios 21:21",
+                    "content": "Aquele que busca a justiça e o amor encontra vida, prosperidade e honra."
+                },
+                {
+                    "title": "Marcos 8:36",
+                    "content": "Qual é a utilidade de ganhar o mundo inteiro se você perder sua vida?"
+                },
+                {
+                    "title": "Salmo 73:26",
+                    "content": "Meu corpo e espírito podem falhar, mas Deus fortalece meu coração; ele é minha herança eterna."
+                },
+                {
+                    "title": "1 Pedro 3:10-11",
+                    "content": "De fato, quem quer amar a vida e gozar dias felizes, refreie sua língua de falar mal e seus lábios de proferir mentiras; afaste-se do mal e faça o bem; busque a paz e siga-a"
+                },
+                {
+                    "title": "Provérbios 4:23",
+                    "content": "Guia-me, pois tu és minha rocha e minha fortaleza, dirige-me por amor do teu nome."
+                },
+                {
+                    "title": "João 3:16",
+                    "content": "Porque Deus amou tanto o mundo que deu o seu Filho unigênito, para que todo aquele que nele crê não pereça, mas tenha a vida eterna."
+                },
+                {
+                    "title": "Filipenses 4:13",
+                    "content": "Posso todas as coisas em Cristo que me fortalece."
+                },
+                {
+                    "title": "Romanos 8:28",
+                    "content": "Agora sabemos que Deus coopera todas as coisas para o bem daqueles que o amam, que foram chamados segundo o seu propósito."
+                },
+                {
+                    "title": "Josué 1:9",
+                    "content": "Já lhe ordenei: Seja forte e corajoso! Não tenha medo nem desanime! Pois o Senhor, seu Deus, o acompanhará aonde quer que você vá."
+                },
+                {
+                    "title": "Números 6:24-26",
+                    "content": "O Senhor te abençoe e te guarde; o Senhor olha para ti com prazer e estende o seu amor por ti; o Senhor te mostra o seu favor e te conceda a paz."
+                },
+                {
+                    "title": "Atos 16:31",
+                    "content": "Creia no Senhor Jesus; assim você e sua família serão salvos..."
+                },
+                {
+                    "title": "Isaías 41:10",
+                    "content": "Portanto, não temas, porque estou contigo; não te assombres, porque eu sou o teu Deus. Eu te fortaleço e te ajudo; eu te sustento com a minha destra vitoriosa."
+                },
+                {
+                    "title": "Salmo 23:1-2",
+                    "content": "O Senhor é meu pastor, nada me falta; Ele me faz descansar em pastos verdes. Ele me conduz a águas calmas."
+                },
+                {
+                    "title": "Salmo 23:4",
+                    "content": "Mesmo que eu passe por vales escuros, não temo nenhum perigo porque você está ao meu lado; sua vara de pastor me conforta."
+                },
+                {
+                    "title": "Jeremias 29:11",
+                    "content": "Porque conheço muito bem os planos que tenho para vós —diz o Senhor—, planos de bem-estar e não de calamidade, para vos dar um futuro e uma esperança."
+                }
+            ]
+        }
+
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+            console.log(portugues)
+            console.log(versiculos)
+
+            let idioma = localStorage.getItem('language');
+            if (idioma) {
+                cambiarIdioma(idioma);
+            } else {
+                localStorage.setItem('language', 'es');
+                cambiarIdioma('es');
+            }
+        });
+
+
+        setLenguage = (idioma) => {
+            localStorage.setItem('language', idioma);
+            cambiarIdioma(idioma);
+        }
+
+        function cambiarIdioma(idioma) {
+            const numero = Math.floor(Math.random() * 20);
+            let button;
+            switch (idioma) {
+                case 'es':
+                    buttonPt = document.getElementById('pt');
+                    buttonEs = document.getElementById('es');
+                    buttonPt.classList = null;
+                    buttonEs.classList = null;
+                    buttonPt.classList.add('show', 'flag')
+                    buttonEs.classList.add('remove', 'flag')
+                    versiculo = versiculos.versiculos
+                    caja.innerHTML = `
+                    <h2>El señor te quiere decir:</h2><div class="caja-versiculos"><p>»${versiculo[numero].contenido}».</p><span>${versiculo[numero].titulo}</span></div>
+                    <a class="refresh" href="go:p1"><img src="https://github.com/Luifer7/Versiculosaleatorios/blob/master/img/refresh.png?raw=true"></a>
+                    `
+                    break;
+                case 'pt':
+                    buttonPt = document.getElementById('pt');
+                    buttonEs = document.getElementById('es');
+                    buttonPt.classList = null;
+                    buttonEs.classList = null;
+                    buttonPt.classList.add('remove', 'flag')
+                    buttonEs.classList.add('show', 'flag')
+                    brasil = portugues.versos
+                    caja.innerHTML = `
+                    <h2>O Senhor quer lhe dizer:</h2><div class="caja-versiculos"><p>»${brasil[numero].content}».</p><span>${brasil[numero].title}</span></div>
+                    <a class="refresh" href="go:p1"><img src="https://github.com/Luifer7/Versiculosaleatorios/blob/master/img/refresh.png?raw=true"></a>
+                    `
+                    break;
+            }
+        }
+    </script>
+
 </body>
+
 </html>
